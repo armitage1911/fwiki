@@ -14,4 +14,4 @@ Then:
 
 Make sure you've prepared a systemd daemon service for Gunicorn and configured a nginx server. Check /NOTES for those files.
 
-This package are still a work in progress so atm it doesn't have a proper index page and some kind of treeview but in overall it works pretty good on Astra Linux.
+This package are still a work in progress so atm it doesn't have a proper index page and some kind of treeview.
