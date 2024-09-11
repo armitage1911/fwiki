@@ -1,0 +1,22 @@
+{% extends 'wiki//base.html' %}
+
+{% block header %}
+  <h1><center>{% block title %}Register{% endblock %}</center></h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <br>
+    <center>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input name="username" id="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" id="password" required>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Register">
+    </center>
+  </form>
+{% endblock %}

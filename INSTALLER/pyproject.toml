@@ -1,0 +1,14 @@
+[project]
+name = "flask_wiki"
+version = "2024.07.08"
+dependencies = [
+    "flask",
+    "markdown-it-py[linkify,plugins]",
+    "psycopg_binary",
+    "psycopg",
+    "gunicorn[gevent]",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"

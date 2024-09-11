@@ -1,0 +1,29 @@
+# sudo nano /etc/systemd/system/fwiki.service
+[Unit]
+Description=Gunicorn flask-wiki daemon
+After=network.target
+
+[Service]
+# gunicorn can let systemd know when it is ready
+Type=notify
+NotifyAccess=main
+
+# the specific user that our service will run as
+User=USERNAME
+Group=www-data
+# this user can be transiently created by systemd
+# DynamicUser=true
+
+WorkingDirectory=/home/USERNAME/fwiki
+Environment="PATH=/home/USERNAME/fwiki/venv/bin"
+ExecStart=/home/USERNAME/fwiki/venv/bin/gunicorn -c gunicorn.py wsgi:app
+
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+# if your app does not need administrative capabilities, let systemd know
+ProtectSystem=strict
+
+[Install]
+WantedBy=multi-user.target

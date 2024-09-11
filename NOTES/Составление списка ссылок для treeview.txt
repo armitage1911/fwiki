@@ -1,0 +1,96 @@
+# Рабочий вариант
+prev_items_depth = 0
+for i in range(len(page)):
+    if prev_items_depth < page[i]["depth"]:
+        if page[i]["pid"] == None: pass
+    print("  " * page[i]["depth"], page[i]["title"])
+    prev_items_depth = page[i]["depth"]
+   
+# Вариант для дебага
+prev_items_depth = 0
+for i in range(len(page)):
+    if prev_items_depth < page[i]["depth"]:
+        if page[i]["pid"] == None:
+            print("NODE FOUND ->", page[i]["title"], page[i]["node_path"])
+        else:
+            print("NODE FOUND ->", page[i - 1]["title"], page[i - 1]["node_path"])
+    print("    " * page[i]["depth"], page[i]["title"], page[i]["node_path"])
+    prev_items_depth = page[i]["depth"]
+    
+
+prev_items_depth, prev_id = 0, 0
+for i in range(len(page)):
+    # если depth меньше чем у предыдущей строки и не равен нулю:
+    if prev_items_depth < page[i]['depth']:
+            print('NODE FOUND', page[i]['node_path'])
+    if page[i]['content'] is NULL:
+        print(f'<li><i class="mr-1"></i>{page[i]["title"]}</li>')
+    else: print(f"<li><i class='mr-1'></i><a href='/{page[i]['id']}' rel='nofollow'>{page[i]['title']}</a></li>")
+    prev_items_depth, prev_id = page[i]['depth'], page[i]['id']
+    
+
+------------------------
+
+page A
+    |--- page A.1
+    |--- page A.2
+
+page B
+    |--- page B.1
+    |--- page B.2
+               |--- page B.2.1
+               
+               
+               
+<div class="treeview">
+  <ul name="treeview" class="mb-1 pl-3 pb-2">
+  
+    <li><i class="fas fa-angle-right rotate"></i>
+      <span><i class="mx-1"></i><a href='#' rel="nofollow">page A</a></span>
+      <ul class="nested">
+        <li><i class="mr-1"></i><a href="#" rel="nofollow">page A.1</a></li>
+        <li><i class="mr-1"></i><a href="#" rel="nofollow">page A.2</a></li>
+      </ul>
+    </li>
+
+    <li><i class="fas fa-angle-right rotate"></i>
+      <span><i class="mx-1"></i>page B</span>
+      <ul class="nested">
+       
+        <li><i class="mr-1"></i>page B.1</li>
+        <li><i class="fas fa-angle-right rotate"></i>
+          <span><i class="mx-1"></i>page B.2</span>
+          <ul class="nested">
+            <li><i class="mr-1"></i>page B.2.1</li>
+          </ul>
+        </li>
+        
+      </ul>
+    </li>
+  </ul>  
+
+</div>
+
+
+//using this, I loop through the rows and use the depth field to add the </ul> whenever the depth is less than the previous item's depth. This way I am able to create my needed HTML.
+ depth | id | parent_id |    name    | node_path
+-------+----+-----------+------------+-----------
+     1 |  1 |           | page A     | 1
+     2 |  3 |         1 | page A.1   | 1.3
+     2 |  4 |         1 | page A.2   | 1.4
+     1 |  2 |           | page B     | 2
+     2 |  5 |         2 | page B.1   | 2.5
+     2 |  6 |         2 | page B.2   | 2.6
+     3 |  7 |         6 | page B.2.1 | 2.6.7
+
+
+//если строка является узлом, то:
+output_tree = """
+            <li class="no-squares">
+              <span><i class='mr-auto'></i><a href='/{PAGE_iD}' rel='nofollow'>{PAGE_NAME}</a></span>
+              <ul class="nested">
+                <li class="no-squares"><i class='mr-auto'></i><a href='/{PAGE_iD}' rel='nofollow'>{PAGE_NAME}</a></li>
+              </ul>
+            </li>
+            """
+output_tree.format()
