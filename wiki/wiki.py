@@ -43,9 +43,9 @@ def index():
     return render_template('wiki/index.html')
 
 
-def allowed_file(filename):
-    return ('.' in filename and
-            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS)
+# def allowed_file(filename):
+#     return ('.' in filename and
+#             filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS)
 
 
 # Для тестов
